@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { ConfigProvider } from "antd";
 import LayoutMenu from "@/components/Menu";
 
@@ -42,7 +42,7 @@ export default function RootLayout({
             } as any,
           }}
         >
-          {children}
+          <LayoutMenu children={children} />
         </ConfigProvider>
       </body>
     </html>
