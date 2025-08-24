@@ -111,7 +111,7 @@ export default function LoginPage() {
                 type="submit"
                 style={{
                   ...sty.button,
-                  background: token.firstColor,
+                  background: token.colorPrimary,
                   color: "#fff",
                   border: "none",
                 }}
@@ -121,12 +121,12 @@ export default function LoginPage() {
             </Form>
             <div style={sty.footer}>
               <div>
-                <Text style={{ ...sty.link, color: token.firstColor }}>
+                <Text style={{ ...sty.link, color: token.colorPrimary }}>
                   Forgot your password?
                 </Text>
               </div>
               <div>
-                <Text style={{ ...sty.link, color: token.firstColor }}>
+                <Text style={{ ...sty.link, color: token.colorPrimary }}>
                   Create account
                 </Text>
               </div>

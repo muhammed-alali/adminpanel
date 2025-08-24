@@ -66,14 +66,22 @@ export default function ChartDashboard() {
     <Row gutter={[40, 40]} style={{ marginTop: 40 }}>
       <Col xs={24} lg={15}>
         <div style={{ width: "800px", height: "470px" }}>
-          <Card title="Visit Statistics" bordered={false}>
+          <Card
+            title="Visit Statistics"
+            bordered={false}
+            style={{ background: "white", borderRadius: 10 }}
+          >
             <Bar data={data1} options={options} />
           </Card>
         </div>
       </Col>
       <Col xs={24} lg={9}>
         <div style={{ width: "450px", height: "200px" }}>
-          <Card title="Sales Distribution" bordered={false}>
+          <Card
+            title="Sales Distribution"
+            bordered={false}
+            style={{ background: "white", borderRadius: 10 }}
+          >
             <Doughnut data={data2} />
           </Card>
         </div>

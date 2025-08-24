@@ -85,7 +85,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <Layout style={{ background: token.firstColor, height: "100vh" }}>
+    <Layout style={{ background: token.colorPrimary, height: "100vh" }}>
       <Sider
         style={{
           background: "rgb(255, 255, 255)",
@@ -125,7 +125,12 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
         <div className="demo-logo-vertical" />
         <Menu
           theme="light"
-          style={{ borderRight: 0, fontSize: "14px", fontWeight: "500" }}
+          style={{
+            borderRight: 0,
+            fontSize: "14px",
+            fontWeight: "500",
+            background: "white",
+          }}
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={[
@@ -249,6 +254,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
                               border: "none",
                               boxShadow: "none",
                               width: "214px",
+                              background: "white",
                             }}
                             bodyStyle={{
                               padding: "12px 0px 12px 10px",
@@ -346,6 +352,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
                               border: "none",
                               boxShadow: "none",
                               width: "214px",
+                              background: "white",
                             }}
                             bodyStyle={{
                               padding: "12px 0px 12px 10px",
@@ -378,8 +385,8 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
             padding: "24px 24px 70px 24px",
             height: "100vh",
             minHeight: "fit-content",
-            background: token.bg,
-            borderRadius: token.firstColor,
+            background: token.colorBgBase,
+            borderRadius: token.colorPrimary,
           }}
         >
           {children}

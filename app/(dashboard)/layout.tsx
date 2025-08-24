@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 
 const theme: ThemeConfig = {
   token: {
-    bg: "#f2edf3",
-    firstColor: "#b66dff",
-  } as any,
+    colorBgBase: "#f2edf3",
+    colorPrimary: "#b66dff",
+  },
   components: {
     Menu: {
       itemSelectedBg: "rgb(255, 255, 255)", // خلفية العنصر المختار (شفافة شوي)
@@ -42,7 +42,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ConfigProvider theme={theme}>
-          <LayoutMenu children={children} />
+          <LayoutMenu>{children}</LayoutMenu>
         </ConfigProvider>
       </body>
     </html>
