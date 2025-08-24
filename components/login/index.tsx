@@ -61,8 +61,7 @@ export default function LoginPage() {
       message.error("Invalid email or password");
     }
   };
-  const { token }: any = theme.useToken();
-
+  const { token } = theme.useToken();
   return (
     <div style={sty.wrapper}>
       <Row gutter={16}>

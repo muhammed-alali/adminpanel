@@ -75,7 +75,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
   const [Notifications, setNotifications] = useState(false);
   const router = useRouter();
 
-  const { token }: any = theme.useToken();
+  const { token } = theme.useToken();
 
   const emailsHandler = () => {
     setEmails(!emails);
