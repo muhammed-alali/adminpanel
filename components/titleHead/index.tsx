@@ -5,7 +5,7 @@ export default function TitleHead({
   icon,
 }: {
   title: string;
-  icon: any;
+  icon: React.ReactNode;
 }) {
   const styDashboard: React.CSSProperties = {
     display: "inline-block",

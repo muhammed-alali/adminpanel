@@ -11,6 +11,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from "chart.js";
 
 ChartJS.register(
@@ -54,7 +55,7 @@ const data2 = {
   ],
 };
 
-const options: any = {
+const options: ChartOptions<"bar"> = {
   responsive: true,
   plugins: { legend: { position: "top" } },
   scales: { y: { beginAtZero: true } },

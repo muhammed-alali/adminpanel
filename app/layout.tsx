@@ -27,23 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ConfigProvider
-          theme={{
-            token: {
-              bg: "#f2edf3",
-              firstColor: "#b66dff",
-            } as any,
-            components: {
-              Menu: {
-                itemSelectedBg: "rgb(255, 255, 255)", // خلفية العنصر المختار (شفافة شوي)
-                itemSelectedColor: "#b66dff", // لون النص للعنصر المختار
-                itemHoverColor: "#b66dff", // لون النص عند hover
-              },
-            } as any,
-          }}
-        >
-          {children}
-        </ConfigProvider>
+        {children}
       </body>
     </html>
   );
