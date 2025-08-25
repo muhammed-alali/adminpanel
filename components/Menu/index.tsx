@@ -29,6 +29,9 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { MdOutlineEmail } from "react-icons/md";
+import { SlArrowDown } from "react-icons/sl";
+import { TfiReload } from "react-icons/tfi";
+import { IoLogInOutline } from "react-icons/io5";
 
 const { Header, Sider, Content } = Layout;
 
@@ -72,6 +75,7 @@ const notifications = [
 const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [emails, setEmails] = useState(false);
+  const [profile, setProfile] = useState(false);
   const [Notifications, setNotifications] = useState(false);
   const router = useRouter();
 
@@ -82,6 +86,9 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
   };
   const hotificationsHandler = () => {
     setNotifications(!Notifications);
+  };
+  const profileHandler = () => {
+    setProfile(!profile);
   };
 
   return (
@@ -144,6 +151,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
               key: "2",
               icon: <FaShopify style={{ fontSize: "20px" }} />,
               label: "Products",
+              onClick: () => router.push("/products"),
             },
             {
               key: "3",
@@ -184,8 +192,8 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
               height: 64,
             }}
           />
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ position: "relative" }}>
+          <div style={{ display: "flex", gap: "40px" }}>
+            <div style={{ position: "relative", top: "5px" }}>
               <div
                 onClick={() => emailsHandler()}
                 style={{ position: "relative", cursor: "pointer" }}
@@ -281,7 +289,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
               )}
             </div>
 
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", top: "5px" }}>
               <div
                 onClick={() => hotificationsHandler()}
                 style={{ position: "relative", cursor: "pointer" }}
@@ -374,6 +382,135 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
                   >
                     {" "}
                     See all notifications
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div style={{ position: "relative" }}>
+              <div
+                onClick={() => profileHandler()}
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <Image
+                  src={"/images/profile.jpg"}
+                  alt="profile"
+                  style={{ borderRadius: "50%" }}
+                  width={40}
+                  height={40}
+                />
+                <div>
+                  Muhammed Ali{" "}
+                  <SlArrowDown
+                    style={{ fontSize: "12px", color: token.colorPrimary }}
+                  />
+                </div>
+              </div>
+              {profile && (
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "160px",
+                    top: "70px",
+                    right: 0,
+                    zIndex: 1,
+                    background: "#fff",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div
+                    style={{
+                      padding: "0px 16px",
+                      borderBottom: "1px solid #eee",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Row gutter={12}>
+                      <Col span={3} style={{ margin: "auto 0px" }}>
+                        <TfiReload
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: "600",
+                            color: "rgba(27,207,180,1)",
+                          }}
+                        />
+                      </Col>
+                      <Col span={10}>
+                        <Card
+                          style={{
+                            border: "none",
+                            boxShadow: "none",
+                            width: "100px",
+                            background: "white",
+                          }}
+                          bodyStyle={{
+                            padding: "18px 0px 12px 10px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontWeight: "400",
+                              fontSize: "16px",
+                              color: "#343a40",
+                            }}
+                          >
+                            {" "}
+                            Activity Log{" "}
+                          </p>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div
+                    style={{
+                      padding: "0px 16px",
+                      borderBottom: "1px solid #eee",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Row gutter={12}>
+                      <Col span={3} style={{ margin: "auto 0px" }}>
+                        <IoLogInOutline
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: "600",
+                            color: token.colorPrimary,
+                          }}
+                        />
+                      </Col>
+                      <Col span={10}>
+                        <Card
+                          style={{
+                            border: "none",
+                            boxShadow: "none",
+                            width: "100px",
+                            background: "white",
+                          }}
+                          bodyStyle={{
+                            padding: "14px 0px 12px 10px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontWeight: "400",
+                              fontSize: "16px",
+                              color: "#343a40",
+                            }}
+                          >
+                            {" "}
+                            Signout
+                          </p>
+                        </Card>
+                      </Col>
+                    </Row>
                   </div>
                 </div>
               )}

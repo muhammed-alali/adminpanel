@@ -1,0 +1,128 @@
+interface Product {
+  key: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  status: "Active" | "Scheduled" | "Draft";
+  image: string;
+}
+export const ProductsData: Product[] = [
+  {
+    key: "1",
+    name: "T-Shirt",
+    category: "Women Cloths",
+    price: 79.8,
+    stock: 79,
+    status: "Scheduled",
+    image: "/images/trendProduct4.webp",
+  },
+  {
+    key: "2",
+    name: "Shirt",
+    category: "Man Cloths",
+    price: 76.89,
+    stock: 86,
+    status: "Active",
+    image: "/images/trendProduct5.webp",
+  },
+  {
+    key: "3",
+    name: "Pant",
+    category: "Kid Cloths",
+    price: 86.65,
+    stock: 74,
+    status: "Draft",
+    image: "/images/trendProduct6.webp",
+  },
+  {
+    key: "4",
+    name: "Sneakers",
+    category: "Shoes",
+    price: 120.5,
+    stock: 55,
+    status: "Active",
+    image: "/images/trendProduct7.webp",
+  },
+  {
+    key: "5",
+    name: "Jacket",
+    category: "Winter Wear",
+    price: 149.99,
+    stock: 42,
+    status: "Scheduled",
+    image: "/images/trendProduct8.webp",
+  },
+  {
+    key: "6",
+    name: "Cap",
+    category: "Accessories",
+    price: 19.5,
+    stock: 120,
+    status: "Active",
+    image: "/images/trendProduct9.webp",
+  },
+  {
+    key: "7",
+    name: "Sunglasses",
+    category: "Accessories",
+    price: 45.0,
+    stock: 98,
+    status: "Draft",
+    image: "/images/trendProduct10.webp",
+  },
+  {
+    key: "8",
+    name: "Skirt",
+    category: "Women Cloths",
+    price: 65.3,
+    stock: 67,
+    status: "Active",
+    image: "/images/trendProduct11.webp",
+  },
+  {
+    key: "9",
+    name: "Blazer",
+    category: "Man Cloths",
+    price: 210.0,
+    stock: 30,
+    status: "Scheduled",
+    image: "/images/trendProduct12.webp",
+  },
+  {
+    key: "10",
+    name: "Dress",
+    category: "Women Cloths",
+    price: 95.75,
+    stock: 60,
+    status: "Active",
+    image: "/images/trendProduct13.webp",
+  },
+  {
+    key: "11",
+    name: "Shorts",
+    category: "Kid Cloths",
+    price: 35.25,
+    stock: 150,
+    status: "Draft",
+    image: "/images/trendProduct14.webp",
+  },
+  {
+    key: "12",
+    name: "Sandals",
+    category: "Shoes",
+    price: 49.99,
+    stock: 85,
+    status: "Active",
+    image: "/images/trendProduct15.webp",
+  },
+  {
+    key: "13",
+    name: "Hoodie",
+    category: "Winter Wear",
+    price: 89.99,
+    stock: 70,
+    status: "Scheduled",
+    image: "/images/trendProduct16.webp",
+  },
+];
