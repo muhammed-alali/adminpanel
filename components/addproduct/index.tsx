@@ -18,10 +18,23 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 
+type ProductFormValues = {
+  title: string;
+  description: string;
+  quantity: number;
+  price: number;
+  colors?: string[];
+  sizes?: string[];
+  properties?: { key: string; value: string }[];
+  images?: File[]; // Upload component gives File[] or custom object
+  category: string;
+  status: "active" | "draft";
+};
+
 export default function AddProductCom() {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: ProductFormValues) => {
     console.log("Product Data:", values);
   };
 
