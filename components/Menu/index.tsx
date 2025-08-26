@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ClockCircleOutlined,
   MailOutlined,
@@ -20,6 +20,7 @@ import {
   Menu,
   Row,
   Space,
+  Spin,
   theme,
 } from "antd";
 import Image from "next/image";
@@ -89,6 +90,11 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
   };
   const profileHandler = () => {
     setProfile(!profile);
+  };
+
+  const SingOut = () => {
+    router.push("/login");
+    sessionStorage.clear();
   };
 
   return (
@@ -430,87 +436,62 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
                       borderBottom: "1px solid #eee",
                       display: "flex",
                       alignItems: "center",
+                      height: "50px",
+                      gap: "8px",
+                      cursor: "pointer",
                     }}
                   >
-                    <Row gutter={12}>
-                      <Col span={3} style={{ margin: "auto 0px" }}>
-                        <TfiReload
-                          style={{
-                            fontSize: "15px",
-                            fontWeight: "600",
-                            color: "rgba(27,207,180,1)",
-                          }}
-                        />
-                      </Col>
-                      <Col span={10}>
-                        <Card
-                          style={{
-                            border: "none",
-                            boxShadow: "none",
-                            width: "100px",
-                            background: "white",
-                          }}
-                          bodyStyle={{
-                            padding: "18px 0px 12px 10px",
-                          }}
-                        >
-                          <p
-                            style={{
-                              fontWeight: "400",
-                              fontSize: "16px",
-                              color: "#343a40",
-                            }}
-                          >
-                            {" "}
-                            Activity Log{" "}
-                          </p>
-                        </Card>
-                      </Col>
-                    </Row>
+                    <TfiReload
+                      style={{
+                        fontSize: "15px",
+                        fontWeight: "600",
+                        color: "rgba(27,207,180,1)",
+                        margin: "auto 0px",
+                      }}
+                    />
+
+                    <p
+                      style={{
+                        fontWeight: "400",
+                        fontSize: "16px",
+                        color: "#343a40",
+                      }}
+                    >
+                      {" "}
+                      Activity Log{" "}
+                    </p>
                   </div>
                   <div
+                    onClick={() => SingOut()}
                     style={{
                       padding: "0px 16px",
                       borderBottom: "1px solid #eee",
                       display: "flex",
                       alignItems: "center",
+                      height: "50px",
+                      gap: "8px",
+                      cursor: "pointer",
                     }}
                   >
-                    <Row gutter={12}>
-                      <Col span={3} style={{ margin: "auto 0px" }}>
-                        <IoLogInOutline
-                          style={{
-                            fontSize: "20px",
-                            fontWeight: "600",
-                            color: token.colorPrimary,
-                          }}
-                        />
-                      </Col>
-                      <Col span={10}>
-                        <Card
-                          style={{
-                            border: "none",
-                            boxShadow: "none",
-                            width: "100px",
-                            background: "white",
-                          }}
-                          bodyStyle={{
-                            padding: "14px 0px 12px 10px",
-                          }}
-                        >
-                          <p
-                            style={{
-                              fontWeight: "400",
-                              fontSize: "16px",
-                              color: "#343a40",
-                            }}
-                          >
-                            {" "}
-                            Signout
-                          </p>
-                        </Card>
-                      </Col>
-                    </Row>
+                    <IoLogInOutline
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "600",
+                        color: token.colorPrimary,
+                        margin: "auto 0px",
+                      }}
+                    />
+
+                    <p
+                      style={{
+                        fontWeight: "400",
+                        fontSize: "16px",
+                        color: "#343a40",
+                      }}
+                    >
+                      {" "}
+                      Signout
+                    </p>
                   </div>
                 </div>
               )}

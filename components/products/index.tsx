@@ -6,6 +6,7 @@ import type { ColumnsType } from "antd/es/table";
 import TitleHead from "../titleHead";
 import { FaShopify } from "react-icons/fa";
 import { ProductsData } from "./data";
+import Link from "next/link";
 
 interface Product {
   key: string;
@@ -91,7 +92,9 @@ export default function ProductsTable() {
           <Space>
             <Button>Filter</Button>
             <Button>See All</Button>
-            <Button type="primary">+ Add Product</Button>
+            <Link href={"/products/addproduct"}>
+              <Button type="primary">+ Add Product</Button>
+            </Link>
           </Space>
         </Col>
       </Row>
