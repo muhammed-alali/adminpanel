@@ -23,7 +23,7 @@ interface StoredProduct {
 }
 
 interface Product {
-  key: number; // استخدمت number بدل string لتوافق key مع Table
+  key: any;
   name: string;
   category: string;
   price: number;
@@ -65,7 +65,7 @@ export default function ProductsTable() {
 
   console.log("Stored Products:", productData);
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<Product> = [
     {
       title: "id",
       dataIndex: "id",
