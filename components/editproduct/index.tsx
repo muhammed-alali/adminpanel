@@ -9,7 +9,6 @@ import {
   Checkbox,
   Button,
   Space,
-  Radio,
   Upload,
 } from "antd";
 import {
@@ -17,7 +16,7 @@ import {
   MinusCircleOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type ProductFormValues = {
@@ -28,31 +27,47 @@ type ProductFormValues = {
   colors?: string[];
   sizes?: string[];
   properties?: { key: string; value: string }[];
-  images?: File[]; // Upload component gives File[] or custom object
+  images?: File[];
   category: string;
   status: "active" | "draft";
 };
 
-export default function AddProductCom() {
-  const [form] = Form.useForm();
+export default function EditProductCom() {
+  const [form] = Form.useForm<ProductFormValues>();
   const router = useRouter();
-
   const [savedValues, setSavedValues] = useState<ProductFormValues[]>([]);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id"); // product index (string)
 
-  // استرجاع البيانات أول ما يشتغل الكمبوننت
+  // load products from localStorage
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("product") || "[]");
     setSavedValues(stored);
   }, []);
 
+  // find product to edit
+  const edit = savedValues.find((_, idx) => String(idx + 1) === id);
+
+  // prefill form with product values
+  useEffect(() => {
+    if (edit) {
+      form.setFieldsValue(edit);
+    }
+  }, [edit, form]);
+
+  // save edited product
   const onFinish = (values: ProductFormValues) => {
-    setSavedValues((prev) => [...prev, values]);
+    const updated = savedValues.map((item, idx) =>
+      String(idx + 1) === id ? values : item
+    );
+    setSavedValues(updated);
   };
 
+  // persist in localStorage
   useEffect(() => {
     if (savedValues.length > 0) {
       localStorage.setItem("product", JSON.stringify(savedValues));
-      console.log("Saved Values:", savedValues);
+      console.log("Updated Products:", savedValues);
     }
   }, [savedValues]);
 
@@ -73,7 +88,7 @@ export default function AddProductCom() {
                 { required: true, message: "Please enter product title" },
               ]}
             >
-              <Input placeholder="Title" />
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -83,7 +98,7 @@ export default function AddProductCom() {
                 { required: true, message: "Please enter product description" },
               ]}
             >
-              <Input.TextArea rows={3} placeholder="Description" />
+              <Input.TextArea rows={3} />
             </Form.Item>
 
             <Row gutter={20}>
@@ -93,7 +108,7 @@ export default function AddProductCom() {
                   name="quantity"
                   rules={[{ required: true, message: "Enter quantity" }]}
                 >
-                  <Input placeholder="Quantity" type="number" />
+                  <Input type="number" />
                 </Form.Item>
               </Col>
 
@@ -103,7 +118,7 @@ export default function AddProductCom() {
                   name="price"
                   rules={[{ required: true, message: "Enter price" }]}
                 >
-                  <Input placeholder="Price" type="number" />
+                  <Input type="number" />
                 </Form.Item>
               </Col>
             </Row>
@@ -111,7 +126,6 @@ export default function AddProductCom() {
             <Form.Item label="Available Colors" name="colors">
               <Select
                 mode="multiple"
-                placeholder="Select product colors"
                 options={[
                   { label: "Red", value: "red" },
                   { label: "Blue", value: "blue" },
@@ -175,7 +189,7 @@ export default function AddProductCom() {
 
       <Col span={6}>
         <Card bodyStyle={{ backgroundColor: "#fff", borderRadius: 8 }}>
-          <h2 style={{ marginBottom: 16 }}>Add Product</h2>
+          <h2 style={{ marginBottom: 16 }}>Edit Product</h2>
           <Form
             layout="vertical"
             form={form}
@@ -207,7 +221,6 @@ export default function AddProductCom() {
               rules={[{ required: true, message: "Please select category" }]}
             >
               <Select
-                placeholder="Select category"
                 options={[
                   { label: "Clothing", value: "clothing" },
                   { label: "Electronics", value: "electronics" },
@@ -217,18 +230,14 @@ export default function AddProductCom() {
               />
             </Form.Item>
 
-            {/* Status */}
             <label style={{ fontWeight: "400", fontSize: 16 }}>Status</label>
             <Form.Item
               name="status"
               initialValue="active"
               style={{ marginTop: 8 }}
-              rules={[
-                { required: true, message: "Please select product status" },
-              ]}
+              rules={[{ required: true, message: "Please select status" }]}
             >
               <Select
-                placeholder="Select status"
                 options={[
                   { label: "Active", value: "active" },
                   { label: "Draft", value: "draft" },
@@ -236,7 +245,7 @@ export default function AddProductCom() {
               />
             </Form.Item>
           </Form>
-          {/* Submit */}
+
           <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
             <Form.Item>
               <Button
@@ -249,7 +258,7 @@ export default function AddProductCom() {
             </Form.Item>
             <Form.Item style={{ width: "100%" }}>
               <Button type="primary" block onClick={() => form.submit()}>
-                Add Product
+                Edit Product
               </Button>
             </Form.Item>
           </div>

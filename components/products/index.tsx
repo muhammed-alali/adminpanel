@@ -7,6 +7,11 @@ import TitleHead from "../titleHead";
 import { FaShopify } from "react-icons/fa";
 import { ProductsData } from "./data";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
+import EditProductCom from "../editproduct";
+import { useRouter } from "next/navigation";
 
 interface Product {
   key: string;
@@ -26,21 +31,60 @@ const statusColors: Record<string, string> = {
 
 export default function ProductsTable() {
   const { token } = theme.useToken();
+  const router = useRouter();
 
-  const columns: ColumnsType<Product> = [
+  const [productData, setProductData] = useState<any>([]);
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem("product") || "[]");
+
+    const mapped = storedProducts.map((p: any, idx: number) => ({
+      key: idx + 1,
+      name: p.title,
+      category: p.category,
+      price: Number(p.price),
+      stock: Number(p.quantity),
+      status: p.status.charAt(0).toUpperCase() + p.status.slice(1),
+      image: p.images[0] || "/no-image.png",
+    }));
+
+    setProductData(mapped);
+  }, []);
+
+  console.log("Stored Products:", productData);
+
+  const columns: ColumnsType<any> = [
+    {
+      title: "id",
+      dataIndex: "id",
+      key: "id",
+      render: (_, record) => (
+        <Space>
+          <span>{record.key}</span>
+        </Space>
+      ),
+    },
+    {
+      title: "",
+      dataIndex: "image",
+      key: "image",
+      render: (_, record) => (
+        <Space>
+          <Image
+            src={`/images/trendProduct5.webp`}
+            alt={record.name}
+            width={40}
+            height={40}
+            style={{ borderRadius: 6, objectFit: "cover" }}
+          />
+        </Space>
+      ),
+    },
     {
       title: "Product Name",
       dataIndex: "name",
       key: "name",
       render: (_, record) => (
         <Space>
-          <Image
-            src={record.image}
-            alt={record.name}
-            width={40}
-            height={40}
-            style={{ borderRadius: 6, objectFit: "cover" }}
-          />
           <span>{record.name}</span>
         </Space>
       ),
@@ -70,9 +114,31 @@ export default function ProductsTable() {
     {
       title: "Action",
       key: "action",
-      render: () => <Button type="link">Details</Button>,
+      render: (_, record) => (
+        <div>
+          <Button
+            type="link"
+            onClick={() => {
+              <EditProductCom key={record.key} />;
+              router.push(`/products/editproduct?id=${record.key}`);
+            }}
+          >
+            <CiEdit size={18} />
+          </Button>
+          <Button type="link" onClick={() => handleDelete(record.key)}>
+            <MdDeleteOutline size={18} />
+          </Button>
+        </div>
+      ),
     },
   ];
+
+  const handleDelete = (key: number) => {
+    console.log("dddddddddddd", key);
+    const filteredData = productData.filter((item: any) => item.key !== key);
+    setProductData(filteredData);
+    localStorage.setItem("product", JSON.stringify(filteredData));
+  };
 
   return (
     <div
@@ -134,7 +200,7 @@ export default function ProductsTable() {
           },
         }}
         columns={columns}
-        dataSource={ProductsData}
+        dataSource={productData.length > 0 ? productData : ProductsData}
         pagination={{
           pageSize: 5,
         }}

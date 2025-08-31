@@ -33,6 +33,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { SlArrowDown } from "react-icons/sl";
 import { TfiReload } from "react-icons/tfi";
 import { IoLogInOutline } from "react-icons/io5";
+import CategoriesPage from "@/app/(dashboard)/categories/page";
 
 const { Header, Sider, Content } = Layout;
 
@@ -163,6 +164,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
               key: "3",
               icon: <TbCategoryPlus style={{ fontSize: "20px" }} />,
               label: "Categories",
+              onClick: () => router.push("/categories"),
             },
             {
               key: "4",
