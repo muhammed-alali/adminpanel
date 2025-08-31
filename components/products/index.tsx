@@ -13,8 +13,17 @@ import { MdDeleteOutline } from "react-icons/md";
 import EditProductCom from "../editproduct";
 import { useRouter } from "next/navigation";
 
+interface StoredProduct {
+  title: string;
+  category: string;
+  price: number;
+  quantity: number;
+  status: "active" | "draft";
+  images?: { uid: string; name: string; status?: string; url?: string }[];
+}
+
 interface Product {
-  key: string;
+  key: number; // استخدمت number بدل string لتوافق key مع Table
   name: string;
   category: string;
   price: number;
@@ -33,18 +42,22 @@ export default function ProductsTable() {
   const { token } = theme.useToken();
   const router = useRouter();
 
-  const [productData, setProductData] = useState<any>([]);
+  const [productData, setProductData] = useState<Product[]>([]);
   useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem("product") || "[]");
+    const storedProducts: StoredProduct[] = JSON.parse(
+      localStorage.getItem("product") || "[]"
+    );
 
-    const mapped = storedProducts.map((p: any, idx: number) => ({
+    const mapped: Product[] = storedProducts.map((p, idx) => ({
       key: idx + 1,
       name: p.title,
       category: p.category,
       price: Number(p.price),
       stock: Number(p.quantity),
-      status: p.status.charAt(0).toUpperCase() + p.status.slice(1),
-      image: p.images[0] || "/no-image.png",
+      status: (p.status.charAt(0).toUpperCase() + p.status.slice(1)) as
+        | "Active"
+        | "Draft",
+      image: p.images?.[0]?.url || "/no-image.png",
     }));
 
     setProductData(mapped);
@@ -134,8 +147,7 @@ export default function ProductsTable() {
   ];
 
   const handleDelete = (key: number) => {
-    console.log("dddddddddddd", key);
-    const filteredData = productData.filter((item: any) => item.key !== key);
+    const filteredData = productData.filter((item) => item.key !== key);
     setProductData(filteredData);
     localStorage.setItem("product", JSON.stringify(filteredData));
   };
