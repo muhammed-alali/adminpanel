@@ -170,6 +170,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
               key: "4",
               icon: <HiOutlineShoppingCart style={{ fontSize: "20px" }} />,
               label: "Orders",
+              onClick: () => router.push("/orders"),
             },
             {
               key: "5",

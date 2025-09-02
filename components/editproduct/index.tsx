@@ -32,17 +32,29 @@ type ProductFormValues = {
   status: "active" | "draft";
 };
 
+type CategoryFormValues = {
+  name: string;
+  description: string;
+  status: "active" | "draft";
+};
+
 export default function EditProductCom() {
   const [form] = Form.useForm<ProductFormValues>();
   const router = useRouter();
   const [savedValues, setSavedValues] = useState<ProductFormValues[]>([]);
+  const [savedValuesCategories, setSavedValuesCategories] = useState<
+    CategoryFormValues[]
+  >([]);
+
   const searchParams = useSearchParams();
   const id = searchParams.get("id"); // product index (string)
 
   // load products from localStorage
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("product") || "[]");
+    const Categories = JSON.parse(localStorage.getItem("category") || "[]");
     setSavedValues(stored);
+    setSavedValuesCategories(Categories);
   }, []);
 
   // find product to edit
@@ -221,15 +233,19 @@ export default function EditProductCom() {
               rules={[{ required: true, message: "Please select category" }]}
             >
               <Select
-                options={[
-                  { label: "Clothing", value: "clothing" },
-                  { label: "Electronics", value: "electronics" },
-                  { label: "Furniture", value: "furniture" },
-                  { label: "Shoes", value: "shoes" },
-                ]}
+                placeholder="Select category"
+                // options={[
+                //   { label: "Clothing", value: "clothing" },
+                //   { label: "Electronics", value: "electronics" },
+                //   { label: "Furniture", value: "furniture" },
+                //   { label: "Shoes", value: "shoes" },
+                // ]}
+                options={savedValuesCategories.map((cat) => ({
+                  label: cat.name,
+                  value: cat.name,
+                }))}
               />
             </Form.Item>
-
             <label style={{ fontWeight: "400", fontSize: 16 }}>Status</label>
             <Form.Item
               name="status"
@@ -257,7 +273,13 @@ export default function EditProductCom() {
               </Button>
             </Form.Item>
             <Form.Item style={{ width: "100%" }}>
-              <Button type="primary" block onClick={() => form.submit()}>
+              <Button
+                type="primary"
+                block
+                onClick={() => {
+                  form.submit();
+                }}
+              >
                 Edit Product
               </Button>
             </Form.Item>

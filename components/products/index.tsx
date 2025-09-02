@@ -240,6 +240,7 @@ import { useRouter } from "next/navigation";
 // المنتج كما يُخزن في localStorage
 interface StoredProduct {
   title: string;
+  description: string;
   category: string;
   price: number;
   quantity: number;
@@ -251,6 +252,7 @@ interface StoredProduct {
 interface ProductTableRow {
   key: string; // align with ProductsData keys
   name: string;
+  description: string;
   category: string;
   price: number;
   stock: number;
@@ -279,6 +281,7 @@ export default function ProductsTable() {
     const mapped: ProductTableRow[] = storedProducts.map((p, idx) => ({
       key: String(idx + 1), // ensure key is string
       name: p.title,
+      description: p.description || "",
       category: p.category,
       price: Number(p.price),
       stock: Number(p.quantity),
@@ -331,6 +334,11 @@ export default function ProductsTable() {
       dataIndex: "name",
       key: "name",
       render: (_, record) => <span>{record.name}</span>,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
     },
     {
       title: "Category",

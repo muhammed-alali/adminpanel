@@ -33,17 +33,30 @@ type ProductFormValues = {
   status: "active" | "draft";
 };
 
+type CategoryFormValues = {
+  name: string;
+  description: string;
+  status: "active" | "draft";
+};
+
 export default function AddProductCom() {
   const [form] = Form.useForm();
   const router = useRouter();
 
   const [savedValues, setSavedValues] = useState<ProductFormValues[]>([]);
+  const [savedValuesCategories, setSavedValuesCategories] = useState<
+    CategoryFormValues[]
+  >([]);
 
   // استرجاع البيانات أول ما يشتغل الكمبوننت
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("product") || "[]");
+    const Categories = JSON.parse(localStorage.getItem("category") || "[]");
     setSavedValues(stored);
+    setSavedValuesCategories(Categories);
   }, []);
+
+  console.log("dfffffffffffff", savedValuesCategories);
 
   const onFinish = (values: ProductFormValues) => {
     setSavedValues((prev) => [...prev, values]);
@@ -159,7 +172,9 @@ export default function AddProductCom() {
                   <Form.Item>
                     <Button
                       type="dashed"
-                      onClick={() => add()}
+                      onClick={() => {
+                        add();
+                      }}
                       block
                       icon={<PlusOutlined />}
                     >
@@ -208,12 +223,16 @@ export default function AddProductCom() {
             >
               <Select
                 placeholder="Select category"
-                options={[
-                  { label: "Clothing", value: "clothing" },
-                  { label: "Electronics", value: "electronics" },
-                  { label: "Furniture", value: "furniture" },
-                  { label: "Shoes", value: "shoes" },
-                ]}
+                // options={[
+                //   { label: "Clothing", value: "clothing" },
+                //   { label: "Electronics", value: "electronics" },
+                //   { label: "Furniture", value: "furniture" },
+                //   { label: "Shoes", value: "shoes" },
+                // ]}
+                options={savedValuesCategories.map((cat) => ({
+                  label: cat.name,
+                  value: cat.name,
+                }))}
               />
             </Form.Item>
 
@@ -248,7 +267,13 @@ export default function AddProductCom() {
               </Button>
             </Form.Item>
             <Form.Item style={{ width: "100%" }}>
-              <Button type="primary" block onClick={() => form.submit()}>
+              <Button
+                type="primary"
+                block
+                onClick={() => {
+                  form.submit();
+                }}
+              >
                 Add Product
               </Button>
             </Form.Item>
