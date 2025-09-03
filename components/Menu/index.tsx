@@ -111,8 +111,17 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
         collapsible
         collapsed={collapsed}
       >
-        <div style={{ padding: "16px" }}>
-          <Image src={"/images/logo.png"} alt="logo" width={120} height={28} />
+        <div style={{ padding: "16px", margin: "auto" }}>
+          <Image
+            style={{
+              display: "block",
+              margin: collapsed ? "auto" : "",
+            }}
+            src={collapsed ? "/images/secoundLogo.png" : "/images/logo.png"}
+            alt="logo"
+            width={collapsed ? 30 : 120}
+            height={28}
+          />
         </div>
         <div
           style={{
@@ -129,7 +138,13 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
             height={40}
           />
 
-          <div style={{ margin: "auto 0px" }}>
+          <div
+            style={
+              collapsed
+                ? { margin: "auto 0px", display: "none" }
+                : { margin: "auto 0px" }
+            }
+          >
             {" "}
             <h4 style={{ fontSize: "14px" }}>Muhammed Ali</h4>
             <p style={{ fontSize: "12px", color: "gray" }}>Project Manager</p>
@@ -176,6 +191,7 @@ const LayoutMenu = ({ children }: { children: React.ReactNode }) => {
               key: "5",
               icon: <IoMdSettings style={{ fontSize: "20px" }} />,
               label: "Settings",
+              onClick: () => router.push("/settings"),
             },
           ]}
         />
